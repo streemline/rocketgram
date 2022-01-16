@@ -28,7 +28,7 @@ class SendMediaGroup(Request):
     allow_sending_without_reply: Optional[bool] = None
 
     def files(self) -> List[InputFile]:
-        out = list()
+        out = []
 
         for e in self.media:
             if hasattr(e, 'media') and isinstance(e.media, InputFile):

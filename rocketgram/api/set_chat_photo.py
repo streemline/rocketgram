@@ -22,6 +22,4 @@ class SetChatPhoto(BoolResultMixin, Request):
     photo: Union[InputFile, str]
 
     def files(self) -> List[InputFile]:
-        if isinstance(self.photo, InputFile):
-            return [self.photo]
-        return list()
+        return [self.photo] if isinstance(self.photo, InputFile) else list()

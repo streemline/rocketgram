@@ -16,7 +16,4 @@ class VoiceChatStarted:
 
     @classmethod
     def parse(cls, data: Optional[Dict]) -> Optional['VoiceChatStarted']:
-        if data is None:
-            return None
-
-        return cls()
+        return None if data is None else cls()

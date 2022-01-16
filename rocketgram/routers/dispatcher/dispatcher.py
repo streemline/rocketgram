@@ -20,7 +20,7 @@ from ...context import context
 
 logger = logging.getLogger('rocketgram.dispatcher')
 
-DEFAULT_WATIRES_LIFETIME = 60 * 60 * 24  # 1 day
+DEFAULT_WATIRES_LIFETIME = 60**2 * 24
 DEFAULT_WATIRES_LIFETIME_CHECK = 60 * 30  # 30 minutes
 
 
@@ -70,7 +70,7 @@ class Dispatcher(BaseDispatcher):
                  watires_lifetime_check=DEFAULT_WATIRES_LIFETIME_CHECK):
         super().__init__(default_priority=default_priority)
 
-        self.__waiters: typing.Dict[str, Waiter] = dict()
+        self.__waiters: typing.Dict[str, Waiter] = {}
         self.__watires_lifetime = watires_lifetime
         self.__watires_lifetime_check = watires_lifetime_check
         self.__last_waiters_check = int(time())
@@ -102,8 +102,10 @@ class Dispatcher(BaseDispatcher):
                 gen = gen()
             wait = await gen.asend(None)
 
-        assert not (wait and not isinstance(wait, (WaitNext, DropWaiter))), \
-            f'Handler `{gen.__name__}` sends `{type(wait)}` while WaitNext or DropWaiter is expected!'
+        assert not wait or isinstance(
+            wait, (WaitNext, DropWaiter)
+        ), f'Handler `{gen.__name__}` sends `{type(wait)}` while WaitNext or DropWaiter is expected!'
+
 
         if isinstance(wait, DropWaiter):
             # drop current waiter
@@ -141,17 +143,9 @@ class Dispatcher(BaseDispatcher):
                 if await _run_filters(pre.filters):
                     await _call_or_await(pre.handler)
 
-            a_next = False
             scope = _user_scope()
-            handler = None
-
-            # if have user scope, try find handler that wait continue
-            # processing through async generators mechanism.
-            if scope:
-                handler = await self.__find_waiter(scope)
-            if handler:
-                a_next = True
-
+            handler = await self.__find_waiter(scope) if scope else None
+            a_next = bool(handler)
             # Find handler from handlers list.
             if not handler:
                 for h in self._handlers:
@@ -192,7 +186,7 @@ class Dispatcher(BaseDispatcher):
             logger.warning('Handler not found for update:\n%s', replace(context.update, raw=dict()))
 
     async def __waiters_cleanup(self, current: int):
-        closes = list()
+        closes = []
         for k in list(self.__waiters.keys()):
             wtr = self.__waiters[k]
             if current - wtr.created > self.__watires_lifetime:

@@ -27,6 +27,4 @@ class SendSticker(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        if isinstance(self.sticker, InputFile):
-            return [self.sticker]
-        return list()
+        return [self.sticker] if isinstance(self.sticker, InputFile) else list()

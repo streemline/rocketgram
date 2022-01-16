@@ -19,7 +19,4 @@ class PollOption:
 
     @classmethod
     def parse(cls, data: dict) -> Optional['PollOption']:
-        if data is None:
-            return None
-
-        return cls(data['text'], data['voter_count'])
+        return None if data is None else cls(data['text'], data['voter_count'])

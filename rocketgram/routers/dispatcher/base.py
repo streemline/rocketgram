@@ -49,12 +49,12 @@ class BaseDispatcher(Router):
 
     def __init__(self, *, default_priority=DEFAULT_PRIORITY):
         self._init = list()
-        self._shutdown = list()
-        self._handlers: List[Handler] = list()
-        self._pre: List[Handler] = list()
+        self._shutdown = []
+        self._handlers: List[Handler] = []
+        self._pre: List[Handler] = []
         self._post: List[Handler] = list()
         self._default_priority = default_priority
-        self._bots: List['bot.Bot'] = list()
+        self._bots: List['bot.Bot'] = []
 
     @property
     def default_priority(self):

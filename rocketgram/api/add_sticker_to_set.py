@@ -26,7 +26,7 @@ class AddStickerToSet(BoolResultMixin, Request):
     mask_position: Optional['api.MaskPosition'] = None
 
     def files(self) -> List['api.InputFile']:
-        files = list()
+        files = []
         if isinstance(self.png_sticker, api.InputFile):
             files.append(self.png_sticker)
         if self.tgs_sticker is not None:

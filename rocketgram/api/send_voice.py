@@ -33,6 +33,4 @@ class SendVoice(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        if isinstance(self.voice, InputFile):
-            return [self.voice]
-        return list()
+        return [self.voice] if isinstance(self.voice, InputFile) else list()

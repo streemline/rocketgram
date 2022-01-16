@@ -37,7 +37,7 @@ def command(*commands: str, case_sensitive: bool = False, separator: str = ' '):
     for cmd in commands:
         if not case_sensitive:
             cmd = cmd.lower()
-        if text == cmd or text == cmd + '@' + bot_name:
+        if text in [cmd, cmd + '@' + bot_name]:
             return True
 
     return False
@@ -78,11 +78,7 @@ def deeplink(*commands: str, case_sensitive: bool = False):
     if not case_sensitive:
         text = text_lw
 
-    if text.lower().startswith(lw):
-        text = msg.text[7 + len(lw):]
-    else:
-        text = msg.text[7:]
-
+    text = msg.text[7 + len(lw):] if text.lower().startswith(lw) else msg.text[7:]
     for cmd in commands:
         if not case_sensitive:
             cmd = cmd.lower()

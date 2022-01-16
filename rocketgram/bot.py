@@ -34,7 +34,7 @@ class Bot:
 
         self.__name = None
         self.__user_id = int(self.__token.split(':')[0])
-        self.__middlewares: List['middlewares.Middleware'] = list()
+        self.__middlewares: List['middlewares.Middleware'] = []
 
         self.__router = router
         if self.__router is None:

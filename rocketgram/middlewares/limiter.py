@@ -20,7 +20,7 @@ class LimiterMiddleware(EmptyMiddleware):
     def __init__(self, quantity: int, period: float):
         self.__quantity = quantity
         self.__period = period
-        self.__values = dict()
+        self.__values = {}
 
     def shutdown(self):
         bot_id = id(context.bot)
