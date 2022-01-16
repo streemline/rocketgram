@@ -18,7 +18,4 @@ class VoiceChatEnded:
 
     @classmethod
     def parse(cls, data: Optional[Dict]) -> Optional['VoiceChatEnded']:
-        if data is None:
-            return None
-
-        return cls(data['duration'])
+        return None if data is None else cls(data['duration'])

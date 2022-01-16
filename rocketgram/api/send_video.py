@@ -37,7 +37,7 @@ class SendVideo(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        out = list()
+        out = []
         if isinstance(self.video, InputFile):
             out.append(self.video)
         if isinstance(self.thumb, InputFile):

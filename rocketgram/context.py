@@ -207,7 +207,7 @@ class Context:
         self.executor = executor
         self.bot = bot
 
-        self.webhook_requests = list()
+        self.webhook_requests = []
 
         self.update = update
 

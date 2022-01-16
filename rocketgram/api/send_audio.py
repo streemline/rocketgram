@@ -36,7 +36,7 @@ class SendAudio(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        out = list()
+        out = []
         if isinstance(self.audio, InputFile):
             out.append(self.audio)
         if isinstance(self.thumb, InputFile):

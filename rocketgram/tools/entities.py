@@ -12,7 +12,7 @@ from ..api import MessageEntity, EntityType
 
 Tag = namedtuple('Tag', 'open close')
 
-ENCODE_UTF16 = not sys.maxunicode == 0xffff
+ENCODE_UTF16 = sys.maxunicode != 0xffff
 
 HTML = {
     EntityType.bold: Tag('<b>', '</b>'),

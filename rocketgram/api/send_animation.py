@@ -36,7 +36,7 @@ class SendAnimation(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        out = list()
+        out = []
         if isinstance(self.animation, InputFile):
             out.append(self.animation)
         if isinstance(self.thumb, InputFile):

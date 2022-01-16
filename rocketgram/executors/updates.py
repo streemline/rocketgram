@@ -24,7 +24,7 @@ class UpdatesExecutor(Executor):
     def __init__(self, request_timeout=30):
         self._timeout = request_timeout
 
-        self._bots: Dict['Bot', Optional[asyncio.Task]] = dict()
+        self._bots: Dict['Bot', Optional[asyncio.Task]] = {}
         self._started = False
 
     @property
@@ -83,9 +83,7 @@ class UpdatesExecutor(Executor):
             try:
                 resp = await bot.send(GetUpdates(offset + 1, allowed_updates=allowed_updates, timeout=self._timeout))
                 for update in resp.result:
-                    if offset < update.update_id:
-                        offset = update.update_id
-
+                    offset = max(offset, update.update_id)
                     task = asyncio.create_task(bot.process(self, update))
                     task.done()
                     pending.add(task)

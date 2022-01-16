@@ -32,6 +32,4 @@ class SendPhoto(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        if isinstance(self.photo, InputFile):
-            return [self.photo]
-        return list()
+        return [self.photo] if isinstance(self.photo, InputFile) else list()

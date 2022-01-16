@@ -30,7 +30,7 @@ class SendVideoNote(MessageResultMixin, Request):
     reply_markup: Optional[ALL_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        out = list()
+        out = []
         if isinstance(self.video_note, InputFile):
             out.append(self.video_note)
         if isinstance(self.thumb, InputFile):

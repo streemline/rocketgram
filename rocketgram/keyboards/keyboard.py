@@ -25,17 +25,14 @@ def _check_scheme_values(*args):
 
 
 def _check_scheme_types(*args):
-    for i in args:
-        if not isinstance(i, (list, tuple)):
-            return False
-    return True
+    return all(isinstance(i, (list, tuple)) for i in args)
 
 
 class Keyboard:
     __slots__ = ('_buttons',)
 
     def __init__(self):
-        self._buttons = list()
+        self._buttons = []
 
     def __assign_buttons(self, keyboard):
         btns = chain.from_iterable([p + q for p, q in zip(keyboard, repeat([None]))])
@@ -70,7 +67,7 @@ class Keyboard:
 
         head_part = [head_btns[p:q] for p, q in zip(accumulate(chain([0], head)), accumulate(head))]
 
-        middle_part = list()
+        middle_part = []
         m = zip(accumulate(chain([0], cycle(middle))), accumulate(cycle(middle)))
         while True:
             p, q = next(m)

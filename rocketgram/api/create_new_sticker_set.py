@@ -29,7 +29,7 @@ class CreateNewStickerSet(BoolResultMixin, Request):
     mask_position: Optional[MaskPosition] = None
 
     def files(self) -> List[InputFile]:
-        files = list()
+        files = []
         if isinstance(self.png_sticker, InputFile):
             files.append(self.png_sticker)
         if self.tgs_sticker is not None:

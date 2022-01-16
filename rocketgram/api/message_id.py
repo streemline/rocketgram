@@ -18,7 +18,4 @@ class MessageId:
 
     @classmethod
     def parse(cls, data: dict) -> Optional['MessageId']:
-        if data is None:
-            return None
-
-        return cls(data['message_id'])
+        return None if data is None else cls(data['message_id'])

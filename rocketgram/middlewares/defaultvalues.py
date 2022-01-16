@@ -20,11 +20,12 @@ class DefaultValuesMiddleware(EmptyMiddleware):
         return self.__defaults.copy()
 
     def before_request(self, request: 'api.Request') -> 'api.Request':
-        replaces = dict()
+        replaces = {
+            k: v
+            for k, v in self.__defaults.items()
+            if hasattr(request, k) and getattr(request, k) is None
+        }
 
-        for k, v in self.__defaults.items():
-            if hasattr(request, k) and getattr(request, k) is None:
-                replaces[k] = v
 
         if len(replaces):
             return replace(request, **replaces)  # noqa

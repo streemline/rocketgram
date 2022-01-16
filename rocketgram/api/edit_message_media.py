@@ -26,7 +26,7 @@ class EditMessageMedia(MessageOrBoolResultMixin, Request):
     reply_markup: Optional[INLINE_KEYBOARDS] = None
 
     def files(self) -> List[InputFile]:
-        out = list()
+        out = []
         media = self.media
 
         if hasattr(media, 'media') and isinstance(media.media, InputFile):

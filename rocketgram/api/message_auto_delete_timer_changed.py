@@ -18,7 +18,4 @@ class MessageAutoDeleteTimerChanged:
 
     @classmethod
     def parse(cls, data: Optional[Dict]) -> Optional['MessageAutoDeleteTimerChanged']:
-        if data is None:
-            return None
-
-        return cls(data['message_auto_delete_time'])
+        return None if data is None else cls(data['message_auto_delete_time'])

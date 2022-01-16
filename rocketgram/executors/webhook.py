@@ -41,7 +41,7 @@ class WebhookExecutor(Executor):
         self._srv = None
         self._started = False
 
-        self._tasks: Dict['Bot', Set[asyncio.Task]] = dict()
+        self._tasks: Dict['Bot', Set[asyncio.Task]] = {}
 
     @property
     def bots(self) -> List['Bot']:

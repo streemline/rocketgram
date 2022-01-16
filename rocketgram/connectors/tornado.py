@@ -80,7 +80,7 @@ class TornadoConnector(Connector):
                                 break
                             await write(chunk)
 
-                        await write(f'\r\n'.encode())
+                        await write('\r\n'.encode())
 
                     await write(f'--{boundary}--\r\n\r\n'.encode())
 

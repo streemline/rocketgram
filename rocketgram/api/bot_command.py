@@ -19,7 +19,4 @@ class BotCommand:
 
     @classmethod
     def parse(cls, data: dict) -> Optional['BotCommand']:
-        if data is None:
-            return None
-
-        return cls(data['command'], data['description'])
+        return None if data is None else cls(data['command'], data['description'])

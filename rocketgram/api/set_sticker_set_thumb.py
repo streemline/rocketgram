@@ -23,6 +23,4 @@ class SetStickerSetThumb(BoolResultMixin, Request):
     thumb: Optional[Union[InputFile, str]]
 
     def files(self) -> List[InputFile]:
-        if isinstance(self.thumb, InputFile):
-            return [self.thumb]
-        return list()
+        return [self.thumb] if isinstance(self.thumb, InputFile) else list()
